@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   yolo-client:
-    image: hottensiahnyanjui/yolo-client:v1.0.0
+    image: hottensiahnyanjui/yolo-client:v1.0.3
     build: ./client
     container_name: yolo-client
     stdin_open: true
@@ -26,7 +26,7 @@ services:
     depends_on: 
       - app-ip-mongo
     environment:
-      MONGO_URI: mongodb://app-ip-mongo:27017/yolomy
+      MONGODB_URI: mongodb://app-ip-mongo:27017/yolomy
     networks:
       - app-net
 
