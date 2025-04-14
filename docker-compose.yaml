@@ -1,24 +1,23 @@
 version: "3.8"
 
 services:
-
- yolo-client:
-    image: hottensiahnyanjui/yolo-client:v1.0.0 
+  yolo-client:
+    image: hottensiahnyanjui/yolo-client:v1.0.0
     build: ./client
-    container_name: yolo-client 
+    container_name: yolo-client
     stdin_open: true
     tty: true
     ports:
       - "3000:3000"
     depends_on:
-      - yolo-backend 
+      - yolo-backend
     networks:
       - app-net
 
   yolo-backend:
-    image: hottensiahnyanjui/yolo-backend:v1.0.0 
+    image: hottensiahnyanjui/yolo-backend:v1.0.0
     build: ./backend
-    container_name: yolo-backend 
+    container_name: yolo-backend
     stdin_open: true
     tty: true
     restart: always
@@ -27,7 +26,7 @@ services:
     depends_on: 
       - app-ip-mongo
     environment:
-      MONGO_URI: mongodb://app-ip-mongo:27017/yolomy 
+      MONGO_URI: mongodb://app-ip-mongo:27017/yolomy
     networks:
       - app-net
 
