@@ -1,5 +1,6 @@
 # Overview
 This project involved the containerization and deployment of a full-stack yolo application using Docker. It has a Node.js backend, React frontend, and MongoDB database.
+It is containerized and orchestrated using Docker Compose for maximum portability and ease of deployment.
 
 
 # Requirements
@@ -22,7 +23,7 @@ Install:
 
    Backend: http://localhost:5000
 
-   MongoDB: exposed on port 27017 
+   MongoDB: exposed on port 27017
 
 ![Dockerhub Repository Screenshot](https://github.com/user-attachments/assets/5c0627f7-2cf8-415c-bd13-411679f2d39c)
 
