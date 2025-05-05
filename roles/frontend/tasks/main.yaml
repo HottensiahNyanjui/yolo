@@ -1,11 +1,33 @@
-- name: Build and run frontend container
-  docker_container:
+---
+- name: Install prerequisites for Frontend role
+  block:
+    - name: Update apt cache
+      apt:
+        update_cache: true
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+
+- name: Clone Yolo repo for Frontend
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ app_dir }}"
+    version: main
+
+- name: Start Frontend container
+  community.docker.docker_container:
     name: yolo-client
-    build:
-      path: /home/vagrant/yolo/frontend
+    image: hottensiahnyanjui/yolo-client:v1.0.3
     state: started
     restart_policy: always
     ports:
-      - "80:80"
-    env:
-      REACT_APP_BACKEND_URL: http://localhost:3000
+      - "3000:3000"
+    networks:
+      - name: app-net
