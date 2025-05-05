@@ -1,0 +1,13 @@
+yolo/
+├── ansible.cfg
+├── inventory
+├── playbook.yaml
+├── group_vars/
+│   └── all.yaml
+├── roles/
+│   ├── frontend/
+│   │   └── tasks/main.yaml
+│   ├── backend/
+│   │   └── tasks/main.yaml
+│   └── database/
+│       └── tasks/main.yaml
