@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
     config.vm.box = "geerlingguy/ubuntu2004"
-    config.vm.hostname = "ansible_host"
+    config.vm.hostname = "yolo-ecommerce"
     config.vm.network "private_network", type: "dhcp"
   
     config.vm.provider "virtualbox" do |vb|
