@@ -2,6 +2,8 @@
 - name: Yolo E-commerce Configuration
   hosts: all
   become: true
+  collections:
+    - community.docker
 
   vars_files:
     - group_vars/all.yaml
