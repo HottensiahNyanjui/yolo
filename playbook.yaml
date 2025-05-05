@@ -1,0 +1,12 @@
+---
+- name: Yolo E-commerce Configuration
+  hosts: all
+  become: true
+
+  vars_files:
+    - group_vars/all.yaml
+
+  roles:
+    - { role: database, tags: ['database'] }
+    - { role: backend, tags: ['backend'] }
+    - { role: frontend, tags: ['frontend'] }
