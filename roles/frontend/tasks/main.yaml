@@ -1,0 +1,11 @@
+- name: Build and run frontend container
+  docker_container:
+    name: yolo-client
+    build:
+      path: /home/vagrant/yolo/frontend
+    state: started
+    restart_policy: always
+    ports:
+      - "80:80"
+    env:
+      REACT_APP_BACKEND_URL: http://localhost:3000
