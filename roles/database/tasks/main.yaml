@@ -1,0 +1,9 @@
+# roles/database/tasks/main.yaml
+- name: Ensure MongoDB container is running
+  docker_container:
+    name: mongo_db
+    image: mongo:4.4
+    state: started
+    restart_policy: always
+    ports:
+      - "27017:27017"
