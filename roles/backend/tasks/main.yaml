@@ -1,0 +1,17 @@
+- name: Clone backend code
+  git:
+    repo: 'https://github.com/HottensiahNyanjui/yolo.git'
+    dest: /home/vagrant/yolo
+    update: yes
+
+- name: Build and run backend container
+  docker_container:
+    name: yolo-backend
+    build:
+      path: /home/vagrant/yolo/backend
+    state: started
+    restart_policy: always
+    ports:
+      - "3000:3000"
+    env:
+      MONGO_URL: mongodb://app-ip-mongo:27017/yolomy
