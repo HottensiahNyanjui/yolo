@@ -1,17 +1,35 @@
-- name: Clone backend code
-  git:
-    repo: 'https://github.com/HottensiahNyanjui/yolo.git'
-    dest: /home/vagrant/yolo
-    update: yes
+---
+- name: Install prerequisites for Backend role
+  block:
+    - name: Update apt cache
+      apt:
+        update_cache: true
 
-- name: Build and run backend container
-  docker_container:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+
+- name: Clone Yolo repo for Backend
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ app_dir }}"
+    version: main
+
+- name: Start Backend container
+  community.docker.docker_container:
     name: yolo-backend
-    build:
-      path: /home/vagrant/yolo/backend
+    image: hottensiahnyanjui/yolo-backend:v1.0.0
     state: started
     restart_policy: always
     ports:
-      - "3000:3000"
+      - "5000:5000"
     env:
-      MONGO_URL: mongodb://app-ip-mongo:27017/yolomy
+      MONGODB_URI: mongodb://app-ip-mongo:27017/yolomy
+    networks:
+      - name: app-net
