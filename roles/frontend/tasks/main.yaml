@@ -33,7 +33,7 @@
 
 - name: Start application using Docker Compose
   community.docker.docker_compose_v2:
-    project_src: "{{ app_dir }}"
+    project_src: "{{ docker_compose_directory }}"
     state: present
-    restarted: smart
-    remove_orphans: yes
+    build: always
+    pull: always
