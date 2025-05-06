@@ -21,15 +21,13 @@
     dest: "{{ app_dir }}"
     version: master
 
-- name: Start Backend container
-  community.docker.docker_container:
-    name: yolo-backend
-    image: hottensiahnyanjui/hottensiah-yolo-backend:v1.0.0
-    state: started
-    restart_policy: no
-    ports:
-      - "5000:5000"
-    env:
-      MONGODB_URI: mongodb://app-ip-mongo:27017/yolomy
-    networks:
-      - name: app-net
+- name: Set Docker Compose directory
+  set_fact:
+    docker_compose_directory: "{{ playbook_dir }}"
+
+- name: Start Backend container using Docker Compose
+  community.docker.docker_compose:
+    project_src: "{{ docker_compose_directory }}"
+    state: present
+    restarted: yes
+    remove_orphans: yes

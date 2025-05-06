@@ -42,3 +42,10 @@
       - app-mongo-data:/data/db
     networks:
       - name: app-net
+
+- name: Ensure MongoDB container is up and running
+  docker_compose:
+    project_src: "{{ docker_compose_directory }}"
+    state: present
+    restarted: yes
+    remove_orphans: yes

@@ -20,7 +20,7 @@ services:
     container_name: yolo-backend
     stdin_open: true
     tty: true
-    restart: no
+    restart: yes
     ports:
       - "5000:5000"
     depends_on: 
