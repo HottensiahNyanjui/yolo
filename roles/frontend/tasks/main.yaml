@@ -10,6 +10,12 @@
         name: docker.io
         state: present
 
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/v2.17.2/docker-compose-linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
     - name: Install Git
       apt:
         name: git
@@ -21,13 +27,7 @@
     dest: "{{ app_dir }}"
     version: master
 
-- name: Start Frontend container
-  community.docker.docker_container:
-    name: yolo-client
-    image: hottensiahnyanjui/hottensiah-yolo-client:v1.0.3
-    state: started
-    restart_policy: always
-    ports:
-      - "3000:3000"
-    networks:
-      - name: app-net
+- name: Start application using Docker Compose
+  shell: docker-compose up -d
+  args:
+    chdir: "{{ app_dir }}"
