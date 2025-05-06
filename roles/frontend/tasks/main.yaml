@@ -24,7 +24,7 @@
 - name: Start Frontend container
   community.docker.docker_container:
     name: yolo-client
-    image: hottensiahnyanjui/yolo-client:v1.0.3
+    image: hottensiahnyanjui/hottensiah-yolo-client:v1.0.3
     state: started
     restart_policy: always
     ports:

@@ -24,7 +24,7 @@
 - name: Start Backend container
   community.docker.docker_container:
     name: yolo-backend
-    image: hottensiahnyanjui/yolo-backend:v1.0.0
+    image: hottensiahnyanjui/hottensiah-yolo-backend:v1.0.0
     state: started
     restart_policy: always
     ports:
