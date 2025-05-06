@@ -19,7 +19,7 @@
   git:
     repo: "{{ repo_url }}"
     dest: "{{ app_dir }}"
-    version: main
+    version: master
 
 - name: Start Frontend container
   community.docker.docker_container:
