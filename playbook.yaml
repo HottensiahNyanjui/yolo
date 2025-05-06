@@ -6,7 +6,7 @@
     - community.docker
 
   vars_files:
-    - group_vars/all.yaml
+    - group_vars/web.yaml
 
   roles:
     - { role: database, tags: ['database'] }
