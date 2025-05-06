@@ -26,7 +26,7 @@
     name: app-net
     ipam_config:
       - subnet: "172.20.0.0/16"
-        ip_range: "172.20.0.0/16"
+        iprange: "172.20.0.0/16"
     driver: bridge
     attachable: true
 
