@@ -6,7 +6,10 @@ resource "null_resource" "provision_vm" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ../ansible/hosts ../ansible/playbook.yaml"
+    command = <<EOT
+ANSIBLE_HOST_KEY_CHECKING=False \
+ansible-playbook -i ../ansible/hosts ../ansible/playbook.yaml
+EOT
   }
 }
 
