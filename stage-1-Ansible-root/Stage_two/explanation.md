@@ -81,5 +81,9 @@ Contains the connection details for the Vagrant VM.
     **http://localhost:3000**
 to view the e-commerce app.
 
+### **Author**
+Hottensiah Wanjiku
+~DevOps Engineer~
+
 
 
