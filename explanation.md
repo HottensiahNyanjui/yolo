@@ -1,55 +1,69 @@
-# Explanation of Dockerized YOLO Application
+## Overview
+This document explains the structure, purpose, and automation logic used in the Yolo E-commerce project. The goal of this stage was to automate the provisioning and configuration of a development environment for a containerized e-commerce application using Vagrant and Ansible.
 
-## 1. Base Image Chosen for Each Container
+## Infrastructure Architecture
+Creates a single virtual machine (VM) using Vagrant with the following components configured:
 
-### Frontend
-The base image used is `node:18-alpine`. It’s small in size and fast due to its lightweight nature.
+- Ubuntu 20.04 as the guest OS (geerlingguy/ubuntu2004)
 
-### Backend
-Similarly, `node:18-alpine` was chosen for the backend. It's compatible with Node.js, builds quickly, and results in a smaller image size.
+- Forwarded ports for:
 
-### MongoDB
-The official `mongo` image from Docker Hub was used. It's pre-configured and well-maintained
+- Frontend (React) – localhost:3000
 
----
+- Backend (Node.js API) – localhost:5000
 
-## 2. Dockerfile Directives
+- Database (MongoDB) – localhost:27017
 
-- `FROM`: Specifies the base image for the container.  
-- `WORKDIR`: Sets the working directory inside the container.  
-- `COPY`: Transfers files from the local file system into the container.  
-- `RUN`: Executes commands such as installing dependencies.  
-- `ENV NODE_OPTIONS=--openssl-legacy-provider`: Sets an environment variable to fix compatibility issues between Node.js and OpenSSL.  
-- `EXPOSE`: Informs Docker which port the container will listen on.  
-- `CMD`: Defines the default command to run when the container starts.
+- Private network setup via DHCP
 
----
+- VirtualBox as the VM provider
 
-## 3. Docker Compose Networking
+## Provisioning & Configuration with Ansible
+- After provisioning the VM, Ansible takes over using a multi-role playbook structured into database, backend, and frontend roles.
 
-### Port Allocation
-- Frontend: accessible via `localhost:3000`  
-- Backend: accessible via `localhost:5000`  
-- MongoDB: exposed on port `27017`
+- Each role:
 
-### Bridge Networking
-Docker Compose sets up a default bridge network for container communication. In this project, a **custom bridge network** named `app-net` was configured. It uses a custom IPAM setup with:
+- Installs prerequisites: Docker, Docker Compose, Git
 
-- `subnet`: `172.20.0.0/16`  
-- `ip_range`: `172.20.0.0/16`
+- Clones the application repository from GitHub
 
----
+- Uses Docker Compose to start containers for the respective service
 
-## 4. Docker Compose Volume
+## Project Structure
+YOLO/
+├── .vagrant/
+├── .vscode/
+├── backend/
+├── client/
+├── group_vars/
+├── roles/
+├── stage-1-Ansible-root/
+│   └── Stage_two/
+├── .dockerignore
+├── .gitignore
+├── ansible.cfg
+├── backend-deployment.yaml
+├── docker-compose.yaml
+├── explanation.md
+├── frontend-deployment.yaml
+├── hosts
+├── image.png
+├── inventory
+├── playbook.yaml
+├── README.md
+├── structure
+└── Vagrantfile
 
-To persist MongoDB data, a named volume `app-mongo-data` was defined. This ensures that data remains intact even if the MongoDB container is removed or rebuilt.
+## Testing the Setup
+- Once you run:
 
----
+    vagrant up
+    ansible-playbook -i hosts playbook.yaml --tags "database,backend,frontend"
 
-## 5. Git Workflow
+You should be able to access:
 
-- **Forking**: A fork of the original repository was created to work independently.  
-- **Cloning**: The forked repo was cloned locally for development.  
-- **Branching**: Work was done on the `master` branch while tracking changes.  
-- **Add, Commit & Push**: Updates were staged using `git add`, committed with descriptive messages using `git commit -m`, and pushed using `git push`.
+**Frontend at http://localhost:3000**
 
+**Backend API at http://localhost:5000**
+
+**MongoDB on localhost:27017**
