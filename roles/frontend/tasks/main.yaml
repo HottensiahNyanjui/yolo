@@ -28,9 +28,6 @@
     version: master
     force: yes
 
-- name: Set Docker Compose directory
-  set_fact:
-    docker_compose_directory: "{{ playbook_dir }}"
 
 - name: Start application using Docker Compose
   community.docker.docker_compose_v2:
