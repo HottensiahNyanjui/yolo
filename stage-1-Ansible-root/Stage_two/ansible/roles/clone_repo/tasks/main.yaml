@@ -1,4 +1,4 @@
-- name: Clone Yolo repo for Frontend
+- name: Clone Yolo repo
   git:
     repo: "{{ repo_url }}"
     dest: "{{ app_dir }}"
