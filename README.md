@@ -1,31 +1,79 @@
-# Overview
-This project involved the containerization and deployment of a full-stack yolo application using Docker. It has a Node.js backend, React frontend, and MongoDB database.
-It is containerized and orchestrated using Docker Compose for maximum portability and ease of deployment.
+# Objective
+The goal was to automate the provisioning and configuration for a containerized e-commerce application using Vagrant and Ansible.
 
+The application cloned from GitHub, and its services (frontend, backend, and database) deployed inside Docker containers—all without manually touching the virtual machine.
 
-# Requirements
-Install:
-[Docker](https://www.docker.com/)
-[Docker Compose](https://docs.docker.com/compose/)
+#Tools Used
+- Vagrant: For provisioning a VM environment.
 
-## How to launch the application 
+- VirtualBox: The VM provider.
 
-1. On your terminal:
-   git clone https://github.com/HottensiahNyanjui/yolo.git #This will Clone the repository 
-   cd yolo #Change your directory into yolo
+- Ansible: For configuration management and service orchestration inside the VM.
 
-2. To build and lauch the containers run:
-   docker-compose up --build
+- Docker & Docker Compose: To containerize and run the application.
 
-3. To access the app:
+- Git: To clone the application repository.
 
-   Frontend: http://localhost:3000
+## The setup
+1. Vagrantfile Setup
+- Spins up a VirtualBox VM using the geerlingguy/ubuntu2004 base box.
 
-   Backend: http://localhost:5000
+- Forwards necessary ports:
 
-   MongoDB: exposed on port 27017
+   3000 (frontend)
 
-![Dockerhub Repository Screenshot](https://github.com/user-attachments/assets/5c0627f7-2cf8-415c-bd13-411679f2d39c)
+   5000 (backend)
 
-## How to run the app
-Use vagrant up --provison command
+   27017 (MongoDB)
+
+- Uses a shell provisioner to install Python for Ansible support.
+
+- The VM is accessible by hostname yolo-ecommerce.
+
+2. Ansible Automation
+- The Ansible playbook handles the following, split by role:
+
+   **Database Role**
+- Installs Docker, Git, and Docker Compose.
+
+   **Clones the app repo**
+
+- Starts the MongoDB container via Docker Compose.
+
+   **Backend Role**
+- Installs necessary packages.
+
+- Clones the backend code.
+
+- Starts the backend API container using Docker Compose.
+
+   **Frontend Role**
+- Similar setup: installs Docker, Docker Compose, and Git.
+
+- Clones the frontend code.
+
+- Launches the frontend app container.
+
+3. All services are deployed via:
+
+community.docker.docker_compose_v2:
+  project_src: "{{ docker_compose_directory }}"
+  state: present
+  build: always
+  pull: always
+
+4. Outcome
+- Once vagrant up and ansible-playbook are run:
+
+- The VM was provisioned and configured without manual SSH access.
+
+- All Docker containers for the app were started and accessible on localhost via forwarded ports.
+
+5. Access:
+
+- Frontend: http://localhost:3000
+
+- Backend API: http://localhost:5000
+
+-  MongoDB: localhost:27017
+
