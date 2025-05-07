@@ -1,0 +1,32 @@
+---
+- name: Install prerequisites for Backend role
+  block:
+    - name: Update apt cache
+      apt:
+        update_cache: true
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+
+- name: Clone Yolo repo for Backend
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ app_dir }}"
+    version: master
+    force: yes
+
+
+
+- name: Start Backend container using Docker Compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_compose_directory }}"
+    state: present
+    build: always
+    pull: always
