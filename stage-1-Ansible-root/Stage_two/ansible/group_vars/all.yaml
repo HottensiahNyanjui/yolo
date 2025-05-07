@@ -1,2 +1,3 @@
 repo_url: https://github.com/HottensiahNyanjui/yolo.git
 app_dir: /home/vagrant/yolo
+docker_compose_directory: "{{ app_dir}}"
