@@ -10,7 +10,7 @@ This project demonstrates a fully automated infrastructure provisioning using **
 
 ---
 
-## 🧱 Project Structure
+## Project Structure
 stage-1-Ansible-root/
 └── Stage_two/
     ├── ansible/
@@ -84,6 +84,3 @@ to view the e-commerce app.
 ### **Author**
 Hottensiah Wanjiku
 ~DevOps Engineer~
-
-
-
