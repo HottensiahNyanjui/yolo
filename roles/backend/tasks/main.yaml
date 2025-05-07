@@ -22,13 +22,11 @@
     version: master
     force: yes
 
-- name: Set Docker Compose directory
-  set_fact:
-    docker_compose_directory: "{{ playbook_dir }}"
+
 
 - name: Start Backend container using Docker Compose
   community.docker.docker_compose_v2:
-    project_src: "{{ app_dirdocker_compose_directory }}"
+    project_src: "{{ docker_compose_directory }}"
     state: present
     build: always
     pull: always
