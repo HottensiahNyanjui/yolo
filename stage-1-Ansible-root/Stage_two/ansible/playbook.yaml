@@ -31,3 +31,4 @@
     - { role: database, tags: ['database'] }
     - { role: backend, tags: ['backend'] }
     - { role: frontend, tags: ['frontend'] }
+    - { role: terraform, tags: ['terraform'] }
