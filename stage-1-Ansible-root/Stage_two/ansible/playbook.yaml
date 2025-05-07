@@ -7,18 +7,6 @@
   vars_files:
     - group_vars/web.yaml
 
-  tasks:
-    - name: Run Terraform to provision infrastructure
-      community.general.terraform:
-        project_path: ./terraform
-        state: present
-        force_init: true
-
-    - name: Wait for server to become reachable
-      wait_for_connection:
-        delay: 10
-        timeout: 300
-
 - name: Configure and Deploy YOLO E-commerce App
   hosts: all
   become: true
