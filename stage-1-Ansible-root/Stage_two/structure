@@ -1,0 +1,30 @@
+stage-1-Ansible-root/
+└── Stage_two/
+    ├── ansible/
+    │   ├── group_vars/
+    │   │   └── web.yaml
+    │   ├── roles/
+    │   │   ├── backend/
+    │   │   │   └── tasks/
+    │   │   │       └── main.yaml
+    │   │   ├── database/
+    │   │   │   └── tasks/
+    │   │   │       └── main.yaml
+    │   │   ├── frontend/
+    │   │   │   └── tasks/
+    │   │   │       └── main.yaml
+    │   │   └── terraform/
+    │   │       └── tasks/
+    │   │           └── main.yaml
+    │   ├── hosts
+    │   └── playbook.yaml
+    ├── terraform/
+    │   ├── .terraform/
+    │   ├── .terraform.lock.hcl
+    │   ├── main.tf
+    │   ├── output.tf
+    │   ├── terraform.tfstate
+    │   └── terraform.tfstate.backup
+    ├── explanation.md
+    ├── README.md
+    └── structure
