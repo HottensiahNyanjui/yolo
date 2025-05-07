@@ -1,0 +1,37 @@
+---
+- name: Install prerequisites for Frontend role
+  block:
+    - name: Update apt cache
+      apt:
+        update_cache: true
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/v2.17.2/docker-compose-linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+
+- name: Clone Yolo repo for Frontend
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ app_dir }}"
+    version: master
+    force: yes
+
+
+- name: Start application using Docker Compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_compose_directory }}"
+    state: present
+    build: always
+    pull: always
