@@ -31,27 +31,9 @@
     dest: "{{ app_dir }}"
     version: master
 
-- name: Create Docker network for the app
-  community.docker.docker_network:
-    name: app-net
-    ipam_config:
-      - subnet: "172.20.0.0/16"
-        iprange: "172.20.0.0/16"
-    driver: bridge
-    attachable: true
 
-- name: Start MongoDB container
-  community.docker.docker_container:
-    name: app-mongo
-    image: mongo
-    state: started
-    restart_policy: always
-    ports:
-      - "27017:27017"
-    volumes:
-      - app-mongo-data:/data/db
-    networks:
-      - name: app-net
+
+
 
 - name: Ensure MongoDB container is up and running
   community.docker.docker_compose_v2:
