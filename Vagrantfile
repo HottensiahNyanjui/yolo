@@ -16,8 +16,6 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: <<-SHELL
       apt-get update
       apt-get install -y python3 python3-pip
-      cd /home/vagrant/yolo
-      docker-compose up -d
     SHELL
   end
   
