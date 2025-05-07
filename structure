@@ -1,13 +1,23 @@
-yolo/
+YOLO/
+├── .vagrant/
+├── .vscode/
+├── backend/
+├── client/
+├── group_vars/
+├── roles/
+├── stage-1-Ansible-root/
+│   └── Stage_two/
+├── .dockerignore
+├── .gitignore
 ├── ansible.cfg
+├── backend-deployment.yaml
+├── docker-compose.yaml
+├── explanation.md
+├── frontend-deployment.yaml
+├── hosts
+├── image.png
 ├── inventory
 ├── playbook.yaml
-├── group_vars/
-│   └── all.yaml
-├── roles/
-│   ├── frontend/
-│   │   └── tasks/main.yaml
-│   ├── backend/
-│   │   └── tasks/main.yaml
-│   └── database/
-│       └── tasks/main.yaml
+├── README.md
+├── structure
+└── Vagrantfile
