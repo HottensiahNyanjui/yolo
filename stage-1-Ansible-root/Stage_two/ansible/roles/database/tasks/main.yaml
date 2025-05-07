@@ -1,0 +1,45 @@
+- name: Install prerequisites for Database
+  block:
+    - name: Update apt cache
+      apt:
+        update_cache: true
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+
+    - name: Install Docker Compose plugin (v2)
+      apt:
+        name: docker-compose-plugin
+        state: present
+
+    - name: Check Docker Compose plugin is available
+      command: docker compose version
+      register: compose_check
+      changed_when: false
+      failed_when: compose_check.rc != 0
+
+- name: Clone Yolo repo for Database
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ app_dir }}"
+    version: master
+    force: yes
+
+
+
+
+
+- name: Ensure MongoDB container is up and running
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_compose_directory }}"
+    state: present
+    build: always
+    pull: always
+    docker_cli: /usr/bin/docker
