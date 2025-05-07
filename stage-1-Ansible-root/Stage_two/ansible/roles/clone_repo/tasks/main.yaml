@@ -1,0 +1,5 @@
+- name: Clone Yolo repo for Frontend
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ app_dir }}"
+    version: main
