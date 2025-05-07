@@ -26,6 +26,7 @@
     repo: "{{ repo_url }}"
     dest: "{{ app_dir }}"
     version: master
+    force: yes
 
 - name: Set Docker Compose directory
   set_fact:
