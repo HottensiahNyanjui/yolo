@@ -1,79 +1,46 @@
 # Objective
-The goal was to automate the provisioning and configuration for a containerized e-commerce application using Vagrant and Ansible.
+The objective of this project was to deploy a full-stack web application to Google Kubernetes Engine (GKE) using Docker and Kubernetes. It aimed to demonstrate skills in containerization, Kubernetes object management (Deployments, Services, PVCs), and cloud deployment. The app integrates a MongoDB backend, a Node.js API, and a React frontend. Persistent storage, networking, and good DevOps practices were key focus areas.
 
-The application cloned from GitHub, and its services (frontend, backend, and database) deployed inside Docker containers—all without manually touching the virtual machine.
+## Features
 
-#Tools Used
-- Vagrant: For provisioning a VM environment.
+- Add and view products
+- MongoDB for persistent storage (via StatefulSet & PVC)
+- Node.js/Express backend API
+- React-based frontend UI
+- Kubernetes deployment with:
+  - Deployment/StatefulSet
+  - Services (ClusterIP & LoadBalancer)
+  - Persistent Volume Claims
 
-- VirtualBox: The VM provider.
+## Tools Used
+The tools used in this project include:
 
-- Ansible: For configuration management and service orchestration inside the VM.
-
-- Docker & Docker Compose: To containerize and run the application.
-
-- Git: To clone the application repository.
+* **Docker** – for containerizing the application components (frontend, backend, and database).
+* **Kubernetes (GKE)** – for orchestrating and deploying the containers in the cloud.
+* **kubectl** – for interacting with the Kubernetes cluster from the command line.
+* **MongoDB** – as the database for storing application data.
+* **React** – for building the frontend user interface.
+* **Node.js + Express** – for the backend API server.
+* **Google Cloud Platform (GCP)** – specifically Google Kubernetes Engine, to host and manage the application.
+* **Git** – To clone the application repository.
 
 ## The setup
-1. Vagrantfile Setup
-- Spins up a VirtualBox VM using the geerlingguy/ubuntu2004 base box.
+1. Clone the Repo
 
-- Forwards necessary ports:
+```bash
+git clone https://github.com/HottensiahNyanjui/yolo.git
+cd yolo
 
-   3000 (frontend)
+2. Deploy to Kubernetes
+Apply all manifests in the manifests/ directory:
 
-   5000 (backend)
+```bash
+kubectl apply -f manifests/
 
-   27017 (MongoDB)
+3. Access the Application
+Once deployed and exposed, visit the frontend via the external IP:
 
-- Uses a shell provisioner to install Python for Ansible support.
+```bash
+kubectl get svc frontend
 
-- The VM is accessible by hostname yolo-ecommerce.
-
-2. Ansible Automation
-- The Ansible playbook handles the following, split by role:
-
-   **Database Role**
-- Installs Docker, Git, and Docker Compose.
-
-   **Clones the app repo**
-
-- Starts the MongoDB container via Docker Compose.
-
-   **Backend Role**
-- Installs necessary packages.
-
-- Clones the backend code.
-
-- Starts the backend API container using Docker Compose.
-
-   **Frontend Role**
-- Similar setup: installs Docker, Docker Compose, and Git.
-
-- Clones the frontend code.
-
-- Launches the frontend app container.
-
-3. All services are deployed via:
-
-community.docker.docker_compose_v2:
-  project_src: "{{ docker_compose_directory }}"
-  state: present
-  build: always
-  pull: always
-
-4. Outcome
-- Once vagrant up and ansible-playbook are run:
-
-- The VM was provisioned and configured without manual SSH access.
-
-- All Docker containers for the app were started and accessible on localhost via forwarded ports.
-
-5. Access:
-
-- Frontend: http://localhost:3000
-
-- Backend API: http://localhost:5000
-
--  MongoDB: localhost:27017
-
+#- Frontend: http://34.121.42.29/ #
