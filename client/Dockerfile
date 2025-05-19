@@ -1,25 +1,19 @@
-FROM node:18-alpine AS build
-
-ENV NODE_OPTIONS=--openssl-legacy-provider
+FROM node:18 AS build
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package*.json ./
+
 RUN npm install
 
 COPY . .
 
-FROM node:18-alpine
+RUN NODE_OPTIONS=--openssl-legacy-provider npm run build
 
-ENV NODE_OPTIONS=--openssl-legacy-provider
+FROM nginx:alpine
 
-WORKDIR /app
+COPY --from=build /app/build /usr/share/nginx/html
 
-COPY --from=build /app /app
+EXPOSE 80
 
-RUN npm cache clean --force
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
-
+CMD ["nginx", "-g", "daemon off;"]
