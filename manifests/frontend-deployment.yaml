@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: hottensiahnyanjui/hottensiah-yolo-client:v1.0.6
+        image: hottensiahnyanjui/hottensiah-yolo-client:v1.0.7
         ports:
         - containerPort: 80
