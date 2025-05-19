@@ -1,23 +1,28 @@
 YOLO/
-├── .vagrant/
-├── .vscode/
-├── backend/
-├── client/
-├── group_vars/
-├── roles/
-├── stage-1-Ansible-root/
-│   └── Stage_two/
 ├── .dockerignore
 ├── .gitignore
-├── ansible.cfg
-├── backend-deployment.yaml
-├── docker-compose.yaml
-├── explanation.md
-├── frontend-deployment.yaml
-├── hosts
-├── image.png
-├── inventory
-├── playbook.yaml
-├── README.md
-├── structure
-└── Vagrantfile
+├── Vagrantfile                  
+├── ansible.cfg                  
+├── docker-compose.yaml         
+├── README.md                   
+├── explanation.md              
+├── image.png                   
+├── hosts                       
+├── inventory                   
+├── playbook.yaml               
+│
+├── manifests/                  
+│   ├── backend-deployment.yaml
+│   ├── backend-service.yaml
+│   ├── frontend-deployment.yaml
+│   ├── frontend-service.yaml
+│   ├── mongo-service.yaml
+│   └── mongo-statefulset.yaml
+│
+├── roles/
+│
+├── group_vars/                 
+│
+├── backend/                    
+├── client/                     
+└── .vscode/                    
