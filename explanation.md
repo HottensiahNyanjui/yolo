@@ -1,69 +1,35 @@
 ## Overview
-This document explains the structure, purpose, and automation logic used in the Yolo E-commerce project. The goal of this stage was to automate the provisioning and configuration of a development environment for a containerized e-commerce application using Vagrant and Ansible.
 
-## Infrastructure Architecture
-Creates a single virtual machine (VM) using Vagrant with the following components configured:
+The objective of this project was to deploy a full-stack web application to a cloud-native environment using Google Kubernetes Engine (GKE). This involved containerizing the application's frontend, backend, and database components, deploying them using Kubernetes manifests, ensuring data persistence, and exposing the application to external traffic. The goal was to gain hands-on experience with deploying and managing applications in a Kubernetes cluster.
 
-- Ubuntu 20.04 as the guest OS (geerlingguy/ubuntu2004)
+## Tools and Technologies Used
 
-- Forwarded ports for:
+- Docker: Used to containerize the frontend, backend, and MongoDB database.
 
-- Frontend (React) – localhost:3000
+- Kubernetes (GKE): Used to orchestrate and deploy containers on Google Cloud.
 
-- Backend (Node.js API) – localhost:5000
+- kubectl: Command-line tool to interact with the Kubernetes cluster.
 
-- Database (MongoDB) – localhost:27017
+- MongoDB: NoSQL database used to store and retrieve product data.
 
-- Private network setup via DHCP
+- React: JavaScript library used to build the frontend UI.
 
-- VirtualBox as the VM provider
+- Node.js + Express: Used for building the backend API server.
 
-## Provisioning & Configuration with Ansible
-- After provisioning the VM, Ansible takes over using a multi-role playbook structured into database, backend, and frontend roles.
+- Google Cloud Platform (GCP): Provided the infrastructure and services, including Google Kubernetes Engine.
 
-- Each role:
+## Deployment Summary
 
-- Installs prerequisites: Docker, Docker Compose, Git
+- Frontend: Built with React, served using NGINX, and deployed using a Deployment and Service. Configured to proxy API requests to the backend.
 
-- Clones the application repository from GitHub
+- Backend: Built with Node.js and Express. Deployed as a Deployment and exposed internally via a ClusterIP Service.
 
-- Uses Docker Compose to start containers for the respective service
+- Database: MongoDB deployed using a StatefulSet with a PersistentVolumeClaim to ensure data persistence.
 
-## Project Structure
-YOLO/
-├── .vagrant/
-├── .vscode/
-├── backend/
-├── client/
-├── group_vars/
-├── roles/
-├── stage-1-Ansible-root/
-│   └── Stage_two/
-├── .dockerignore
-├── .gitignore
-├── ansible.cfg
-├── backend-deployment.yaml
-├── docker-compose.yaml
-├── explanation.md
-├── frontend-deployment.yaml
-├── hosts
-├── image.png
-├── inventory
-├── playbook.yaml
-├── README.md
-├── structure
-└── Vagrantfile
+- Services: Kubernetes Services (ClusterIP and LoadBalancer) were configured to enable communication between components and expose the frontend to the internet.
 
-## Testing the Setup
-- Once you run:
+- Testing and Debugging: kubectl and port-forwarding were used to test connectivity and application functionality.
 
-    vagrant up
-    ansible-playbook -i hosts playbook.yaml --tags "database,backend,frontend"
+## Outcome
 
-You should be able to access:
-
-**Frontend at http://localhost:3000**
-
-**Backend API at http://localhost:5000**
-
-**MongoDB on localhost:27017**
+The application was successfully deployed and could be accessed via an external IP http://34.121.42.29/ . Data persistence was verified through MongoDB integration. The project demonstrated key DevOps and cloud-native practices, including containerization, persistent storage, inter-service communication, and cloud deployment.
